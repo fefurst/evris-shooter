@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://caxbxn71wxb8t"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_play"]
+[ext_resource type="Texture" path="res://icon.svg" id="2_icon"]
+[ext_resource type="PackedScene" uid="uid://ddcx7lqhxyc71" path="res://bullet.tscn" id="2_bull"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(64, 64)
+
+[node name="Player" type="Area2D" groups=["player_group"]]
+position = Vector2(240, 650)
+script = ExtResource("1_play")
+bullet_scene = ExtResource("2_bull")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_icon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -40)

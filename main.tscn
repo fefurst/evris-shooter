@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://mainxscene2d"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_abc"]
+[ext_resource type="PackedScene" uid="uid://cxqbqxxxbxyx" path="res://space_background.tscn" id="1_spacebg"]
+[ext_resource type="PackedScene" uid="uid://caxbxn71wxb8t" path="res://player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://cbxxyh31xax9" path="res://enemy.tscn" id="3_enemy"]
+[ext_resource type="PackedScene" uid="uid://cax23xgwlxv8q" path="res://pause_menu.tscn" id="4_pause"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_abc")
+enemy_scene = ExtResource("3_enemy")
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(240, 650)
+
+[node name="SpaceBackground" parent="." instance=ExtResource("1_spacebg")]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="HUD/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Score: 0"
+
+[node name="LevelLabel" type="Label" parent="HUD/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Level: 1"
+horizontal_alignment = 1
+
+[node name="LivesLabel" type="Label" parent="HUD/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Lives: 3"
+horizontal_alignment = 2
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_pause")]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

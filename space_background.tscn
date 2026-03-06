@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxqbqxxxbxyx"]
+
+[ext_resource type="Script" path="res://space_background.gd" id="1_bg"]
+[ext_resource type="Script" path="res://star_generator.gd" id="2_stargen"]
+
+[sub_resource type="Gradient" id="Gradient_Planet"]
+offsets = PackedFloat32Array(0, 0.7, 1)
+colors = PackedColorArray(0.8, 0.4, 0.2, 1, 0.4, 0.1, 0.3, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_Planet"]
+gradient = SubResource("Gradient_Planet")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.9, 0.5)
+width = 256
+height = 256
+
+[node name="SpaceBackground" type="ParallaxBackground"]
+script = ExtResource("1_bg")
+
+[node name="BaseDimension" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+
+[node name="DeepColor" type="ColorRect" parent="BaseDimension"]
+offset_right = 480.0
+offset_bottom = 720.0
+color = Color(0.02, 0.02, 0.05, 1)
+
+[node name="PlanetLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.1, 0.1)
+motion_mirroring = Vector2(0, 1440)
+
+[node name="PlanetSprite" type="Sprite2D" parent="PlanetLayer"]
+position = Vector2(100, 300)
+texture = SubResource("GradientTexture2D_Planet")
+
+[node name="DeepStars" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(0, 720)
+
+[node name="StarField1" type="Node2D" parent="DeepStars"]
+script = ExtResource("2_stargen")
+star_count = 60
+min_size = 0.5
+max_size = 1.0
+color_tint = Color(0.6, 0.6, 0.7, 1)
+
+[node name="MidStars" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.6, 0.6)
+motion_mirroring = Vector2(0, 720)
+
+[node name="StarField2" type="Node2D" parent="MidStars"]
+script = ExtResource("2_stargen")
+star_count = 35
+min_size = 1.0
+max_size = 2.0
+color_tint = Color(0.8, 0.9, 1, 1)
+
+[node name="FastStars" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(1, 1)
+motion_mirroring = Vector2(0, 720)
+
+[node name="StarField3" type="Node2D" parent="FastStars"]
+script = ExtResource("2_stargen")
+star_count = 15
+min_size = 2.0
+max_size = 3.5
+color_tint = Color(1, 1, 1, 1)
