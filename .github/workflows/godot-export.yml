@@ -39,12 +39,6 @@ jobs:
           name: evris-shooter-windows
           path: ${{ steps.export.outputs.archive_directory }}/Windows.zip
 
-      - name: Upload Web Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: evris-shooter-web
-          path: ${{ steps.export.outputs.archive_directory }}/Web.zip
-          
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
